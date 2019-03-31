@@ -28,10 +28,10 @@ steps:
   - script: npm install
     displayName: 'Build'
 
-  - script: npm run test:bin
+  - script: npm run test:bin -R xunit -O output=bin-tests.xml
     displayName: 'Tests (bin)'
 
-  - script: npm run test:command
+  - script: npm run test:command -R xunit -O output=command-tests.xml
     displayName: 'Tests (command)'
 
   - task: PublishTestResults@2
