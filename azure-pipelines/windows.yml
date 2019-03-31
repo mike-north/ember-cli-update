@@ -28,10 +28,13 @@ steps:
   - script: npm install
     displayName: 'Build'
 
+  - script: npm run test:bin
+    displayName: 'Tests (bin)'
+
+  - script: npm run test:command
+    displayName: 'Tests (command)'
+
   - task: PublishTestResults@2
-    displayName: Publish Tests Results
     inputs:
-      testResultsFiles: 'results-*.xml'
-      testResultsFormat: XUnit
-      searchFolder: '$(Build.SourcesDirectory)'
-    condition: succeededOrFailed()
+      testResultsFormat: 'jUnit'
+      testResultsFiles: '*-tests.xml'

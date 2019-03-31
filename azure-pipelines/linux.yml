@@ -9,8 +9,8 @@ strategy:
   matrix:
     Node6:
       nodejs_version: '6'
-    # Node8:
-    #   nodejs_version: '8'
+    Node8:
+      nodejs_version: '8'
   maxParallel: 2
 
 pool:
