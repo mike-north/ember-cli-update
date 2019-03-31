@@ -1,0 +1,40 @@
+trigger:
+  paths:
+    exclude:
+      - README.md
+      - CHANGELOG.md
+      - CODE_OF_CONDUCT.md
+
+strategy:
+  matrix:
+    Node6:
+      nodejs_version: '6'
+    # Node8:
+    #   nodejs_version: '8'
+  maxParallel: 2
+
+pool:
+  vmImage: ubuntu-16.04
+
+variables:
+  CI: true
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(nodejs_version)
+    displayName: 'Install Node.js'
+
+  - script: npm install
+    displayName: 'Build'
+
+  - script: npm run test:bin
+    displayName: 'Tests (bin)'
+
+  - script: npm run test:command
+    displayName: 'Tests (command)'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'jUnit'
+      testResultsFiles: '*-tests.xml'
